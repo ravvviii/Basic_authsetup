@@ -47,7 +47,7 @@ router.get("/getAllPost",isLoggedIn, async (req, res) => {
 
 
 // Single post with id
-router.get("/getPost/:id", async (req, res) => {
+router.get("/getPost/:id", isLoggedIn,async (req, res) => {
 
     try {
         const id = req.params.id
@@ -76,7 +76,7 @@ router.get("/getPost/:id", async (req, res) => {
 // Create post
 
 
-router.post("/createPost", async (req, res) => {
+router.post("/createPost",isLoggedIn, async (req, res) => {
     try {
 
         const data = req.body;
@@ -104,7 +104,7 @@ router.post("/createPost", async (req, res) => {
 
 // Update the post
 
-router.put("/updatePost/:id", async(req, res)=>{
+router.put("/updatePost/:id", isLoggedIn,async(req, res)=>{
     try {
         const id = req.params.id
         const data = req.body;
@@ -124,7 +124,7 @@ router.put("/updatePost/:id", async(req, res)=>{
 
 
 
-router.delete("/deletePost/:id", async(req, res)=>{
+router.delete("/deletePost/:id", isLoggedIn,async(req, res)=>{
     try {
         const id = req.params.id;
         const response = await Post.findByIdAndDelete(id);
