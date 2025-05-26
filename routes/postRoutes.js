@@ -1,7 +1,7 @@
 const express = require('express')
 const Post = require('../models/post')
 const router = express.Router()
-
+const User = require("../models/user")
 const isLoggedIn = require("../middleware/authMiddleware")
 
 
@@ -21,7 +21,7 @@ router.get("/getAllPost",isLoggedIn, async (req, res) => {
 
     try {
 
-        const response = await Post.find();
+        const response = await Post.find().populate("author");
 
         if (!response) {
            return res.status(500).json({ message: "No post found" })
@@ -80,22 +80,42 @@ router.post("/createPost",isLoggedIn, async (req, res) => {
     try {
 
         const data = req.body;
-        const response = await Post.create(data)
-
-        // const response = await newPost.save();
-
-        if (!response) {
-         return   res.status(500).json({ message: "Internal server error while creating post" })
+        
+       
+        
+        
+        const email = req.user.email
+        
+        const postUser = await User.findOne({email:email})
+        if (!postUser) {
+            return res.status(404).json({ message: "Author not found" });
         }
 
 
+        const response = await Post.create({
+            ...data,
+            author:postUser._id
+
+        })
+         // const response = await newPost.save();
+        
+        if (!response) {
+            return   res.status(500).json({ message: "Internal server error while creating post" })
+        }
+
+    postUser.posts.push(response._id)
+    await postUser.save()
+
+
+
         console.log(`Post Created`);
+        
         res.status(200).json(response)
 
 
     } catch (error) {
         console.log(`Error while creating post`);
-        res.status(500).json({ message: error })
+        res.status(500).send(error )
     }
 })
 
