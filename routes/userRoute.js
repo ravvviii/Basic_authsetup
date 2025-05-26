@@ -18,6 +18,7 @@ router.post("/register", async (req, res) => {
     try {
         const { username, email, password, role } = req.body;
 
+
         const findUser = await User.findOne({ username });
         if (findUser) {
             return res.status(400).json({ message: "User already exists" });
@@ -71,10 +72,10 @@ router.post("/login", async (req, res)=>{
         }
         bcrypt.compare(password, user.password, (err, result)=>{
         if(result){
-            let token =  jwt.sign({email:user.email, userid:user._id}, "abcsdygf");
+            let token =  jwt.sign({email:user.email, role: user.role ,userid:user._id}, "abcsdygf");
                 res.cookie("token", token);
                 
-            res.status(200).json({"token":token,"Login Successfull":"Login"})
+            res.status(200).json({"token":token,"Details":user})
         } 
             
             else res.status(401).send("Invalid credential")
