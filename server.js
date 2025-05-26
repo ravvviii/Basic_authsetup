@@ -8,6 +8,7 @@ const db = require('./db')
 
 const postRoute = require("./routes/postRoutes")
 const userRoute  = require("./routes/userRoute")
+const adminRoute = require("./routes/adminRoute")
 
 // Body-Parser middleware
 app.use(bodyParser.json());  
@@ -34,6 +35,7 @@ app.get("/", (req, res)=>{
 
 app.use("/post" ,postRoute)
 app.use("/user" ,userRoute)
+app.use("/admin",adminRoute)
 
 
 
