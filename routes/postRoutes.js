@@ -18,15 +18,15 @@ router.get("/getAllPost", async (req, res) => {
 
     try {
 
-        const responce = await Post.find();
+        const response = await Post.find();
 
-        if (!responce) {
-            res.status(500).json({ message: "No post found" })
+        if (!response) {
+           return res.status(500).json({ message: "No post found" })
         }
 
 
         console.log(`All post are fetched `);
-        res.status(200).json(responce)
+        res.status(200).json(response)
 
 
     } catch (error) {
@@ -49,15 +49,15 @@ router.get("/getPost/:id", async (req, res) => {
     try {
         const id = req.params.id
 
-        const responce = await Post.find({ _id: id });
+        const response = await Post.findById(id);
 
-        if (!responce) {
-            res.status(500).json({ message: "No post found" })
+        if (!response) {
+         return   res.status(500).json({ message: "No post found" })
         }
 
 
         console.log(`Post fetched` );
-        res.status(200).json(responce)
+        res.status(200).json(response)
 
 
     } catch (error) {
@@ -77,17 +77,17 @@ router.post("/createPost", async (req, res) => {
     try {
 
         const data = req.body;
-        const responce = await Post.create(data)
+        const response = await Post.create(data)
 
-        // const responce = await newPost.save();
+        // const response = await newPost.save();
 
-        if (!responce) {
-            res.status(500).json({ message: "Internal server error while creating post" })
+        if (!response) {
+         return   res.status(500).json({ message: "Internal server error while creating post" })
         }
 
 
         console.log(`Post Created`);
-        res.status(200).json(responce)
+        res.status(200).json(response)
 
 
     } catch (error) {
@@ -105,13 +105,13 @@ router.put("/updatePost/:id", async(req, res)=>{
     try {
         const id = req.params.id
         const data = req.body;
-        const responce = await Post.findByIdAndUpdate(id, data, {new:true})
+        const response = await Post.findByIdAndUpdate(id, data, {new:true})
 
-        if(!responce){
-              res.status(404).json({ message: "Post not found" })
+        if(!response){
+            return  res.status(404).json({ message: "Post not found" })
         }
          console.log(`Post Updated`);
-        res.status(200).json(responce)
+        res.status(200).json(response)
         
     } catch (error) {
           console.log(`Error while updating post`);
@@ -124,10 +124,10 @@ router.put("/updatePost/:id", async(req, res)=>{
 router.delete("/deletePost/:id", async(req, res)=>{
     try {
         const id = req.params.id;
-        const responce = await Post.findByIdAndDelete(id);
+        const response = await Post.findByIdAndDelete(id);
 
-        if(!responce){
-              res.status(404).json({ message: "Post not found" })
+        if(!response){
+            return  res.status(404).json({ message: "Post not found" })
         }
         console.log(`Post Deleted`);
         res.status(200).json({message:"Post deleted successfully"})
@@ -135,7 +135,7 @@ router.delete("/deletePost/:id", async(req, res)=>{
         
     } catch (error) {
           console.log(`Error while deleting post`);
-        res.status(500).json({ message: error })
+        res.status(500).json("Error")
     }
 })
 
