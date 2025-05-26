@@ -75,7 +75,9 @@ router.post("/login", async (req, res)=>{
             let token =  jwt.sign({email:user.email, role: user.role ,userid:user._id}, "abcsdygf");
                 res.cookie("token", token);
                 
+                console.log("Login successfull");
             res.status(200).json({"token":token,"Details":user})
+            
         } 
             
             else res.status(401).send("Invalid credential")
@@ -89,6 +91,7 @@ router.post("/login", async (req, res)=>{
 
 
 router.get("/logout", (req, res) => {
+    log
     res.cookie("token", "");
     res.status(200).send("Logout Successfull");
 });
