@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 
 
+
 const postSchema = new mongoose.Schema({
     title:{
         type:String,
@@ -11,16 +12,16 @@ const postSchema = new mongoose.Schema({
         required:true
         
     },
-    author:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'',
-        required:true
-    },
-    likes:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'',
+    // author:{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:'user',
+    //     // required:true
+    // },
+    // likes:[{
+    //     type:mongoose.Schema.Types.ObjectId,
+    //     ref:'user',
 
-    }],
+    // }],
     
 
 }, {timestamps:true})
