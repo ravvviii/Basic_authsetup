@@ -12,11 +12,11 @@ const postSchema = new mongoose.Schema({
         required:true
         
     },
-    // author:{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref:'user',
-    //     // required:true
-    // },
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'user',
+        required:true
+    }
     // likes:[{
     //     type:mongoose.Schema.Types.ObjectId,
     //     ref:'user',

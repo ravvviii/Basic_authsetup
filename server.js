@@ -7,9 +7,13 @@ const db = require('./db')
 
 
 const postRoute = require("./routes/postRoutes")
+const userRoute  = require("./routes/userRoute")
 
 // Body-Parser middleware
-app.use(bodyParser.json());  // It will save in req.body
+app.use(bodyParser.json());  
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 
 
 app.get("/ping", (req, res)=>{
@@ -21,7 +25,17 @@ app.get("/", (req, res)=>{
  
 
 
-app.use("/post", postRoute)
+
+
+
+
+
+
+
+app.use("/post" ,postRoute)
+app.use("/user" ,userRoute)
+
+
 
 const port = process.env.PORT ||3000
 app.listen(port,()=>{

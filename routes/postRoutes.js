@@ -2,6 +2,9 @@ const express = require('express')
 const Post = require('../models/post')
 const router = express.Router()
 
+const isLoggedIn = require("../middleware/authMiddleware")
+
+
 
 // Pining 
 router.get("/ping", (req, res)=>{
@@ -14,7 +17,7 @@ router.get("/ping", (req, res)=>{
 
 
 // Get all post 
-router.get("/getAllPost", async (req, res) => {
+router.get("/getAllPost",isLoggedIn, async (req, res) => {
 
     try {
 
