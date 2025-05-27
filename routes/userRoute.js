@@ -89,11 +89,13 @@ router.post("/login", async (req, res)=>{
     }
 })
 
-
 router.get("/logout", (req, res) => {
-    log
-    res.cookie("token", "");
-    res.status(200).send("Logout Successfull");
+    res.clearCookie("token", {
+        httpOnly: true,
+        secure: true,       // true if using HTTPS
+        sameSite: "Strict", // or 'Lax'
+    });
+    res.status(200).json({ message: "Logout Successful" });
 });
 
 
